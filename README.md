@@ -6,4 +6,5 @@ Linguagem de Programação: Python
 Pacotes requisitados: pulp, json
 
 pip install pulp
+
 pip install json
