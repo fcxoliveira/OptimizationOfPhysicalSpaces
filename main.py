@@ -49,6 +49,7 @@ qt += a*b*x                                 # x = quantidade de áreas de lados 
 # Quantidade multiplicada pelos lados do pacote não pode ser maior que o lado do container
 resto1 += a*x1 + b*y1 <= l1
 resto2 += a*x2 + b*y2 <= c1
+
 # Quantidade multiplicada pelas áreas não pode ser maior que a área do container
 qt += a*b*x <= l1*c1
 
@@ -74,19 +75,22 @@ print("Valor da função objetivo: %i" % value(resto1.objective))
 # Por enquanto isso funciona como um teste onde ele pega os
 if val_x1 == 0 and val_y1 == 0:
     print("Não teve quantidades para ambos")
-elif val_x1 != 0 and val_y1 != 0:
-    origem_x = vetor_principal1[0][0] # Pegando o ponto de origem do container em x
-    origem_y = vetor_principal1[0][1] # Pegando o ponto de origem do container em y
+else:
+    origem_x = vetor_principal1[0][0]  # Pegando o ponto de origem do container em x
+    origem_y = vetor_principal1[0][1]  # Pegando o ponto de origem do container em y
     x_x = val_x1 * a
     x_y = b
     y_x = a
     y_y = x_x + (val_y1 * b)
-    temp1 = [(origem_x, origem_y), (x_x, x_y)]
-    origem_x = x_x
-    temp2 = [(origem_x, origem_y), (y_y, y_x)]
-    areas_temp.append(temp1)
-    areas_temp.append(temp2)
-else:
-    print("")
+    if val_x1 != 0 and b <= c1:
+        temp1 = [(origem_x, origem_y), (x_x, x_y)]
+        origem_x = x_x
+        areas_temp.append(temp1)
+    if val_y1 != 0 and a <= c1:
+        temp2 = [(origem_x, origem_y), (y_y, y_x)]
+        areas_temp.append(temp2)
+    else:
+        print("-------------------------------------")
+        print("Erro: Não podem ser colocados os pacotes")
 print("-------------------------------------")
 print("Áreas: " + str(areas_temp))
